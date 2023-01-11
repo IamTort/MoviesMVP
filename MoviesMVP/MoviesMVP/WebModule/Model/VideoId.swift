@@ -1,11 +1,10 @@
 // VideoId.swift
 // Copyright © RoadMap. All rights reserved.
 
-import Foundation
 import SwiftyJSON
 
 /// Ключ от видео
-struct VideoId: Decodable {
+struct VideoId {
     /// Ключ
     let key: String
 

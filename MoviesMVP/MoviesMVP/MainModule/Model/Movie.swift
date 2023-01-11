@@ -1,11 +1,10 @@
 // Movie.swift
 // Copyright © RoadMap. All rights reserved.
 
-import Foundation
 import SwiftyJSON
 
 /// Модель фильма для главного экрана
-struct Movie: Decodable {
+struct Movie {
     /// Название фильма
     let title: String
     /// Идентификатор фильма
