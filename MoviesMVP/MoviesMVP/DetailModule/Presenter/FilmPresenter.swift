@@ -24,7 +24,7 @@ final class FilmPresenter: FilmViewPresenterProtocol {
 
     // MARK: - Initializer
 
-    required init(
+    init(
         view: FilmViewProtocol,
         networkService: NetworkServiceProtocol,
         filmIndex: Int,
@@ -43,9 +43,9 @@ final class FilmPresenter: FilmViewPresenterProtocol {
     }
 
     // MARK: - Private method
-    
+
     private func getFilm(index: Int) {
-        networkService?.loadFilm(index: index) { [weak self] result in
+        networkService?.fetchFilm(index: index) { [weak self] result in
             guard let self = self,
                   let networkService = self.networkService else { return }
             switch result {

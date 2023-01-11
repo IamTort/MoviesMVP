@@ -37,7 +37,7 @@ final class WebPresenter: WebViewPresenterProtocol {
     // MARK: - Private methods
 
     private func loadWebViewData(index: Int) {
-        networkService?.loadVideos(index: index) { [weak self] result in
+        networkService?.fetchVideos(index: index) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case let .success(videos):

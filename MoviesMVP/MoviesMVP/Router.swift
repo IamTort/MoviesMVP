@@ -21,19 +21,19 @@ final class Router: RouterProtocol {
 
     func initialViewController() {
         guard let navigationController = navigationController,
-              let mainViewController = assemblyBuilder?.createMainModule(router: self) else { return }
+              let mainViewController = assemblyBuilder?.makeMainModule(router: self) else { return }
         navigationController.viewControllers = [mainViewController]
     }
 
     func showDetail(filmId: Int) {
-        guard let filmViewController = assemblyBuilder?.createDetailModule(filmIndex: filmId, router: self),
+        guard let filmViewController = assemblyBuilder?.makeDetailModule(filmIndex: filmId, router: self),
               let navigationController = navigationController else { return }
         navigationController.pushViewController(filmViewController, animated: true)
     }
 
     func showVideo(videoIndex: Int) {
         if let navigationController = navigationController {
-            guard let filmViewController = assemblyBuilder?.createWebModule(filmIndex: videoIndex, router: self)
+            guard let filmViewController = assemblyBuilder?.makeWebModule(filmIndex: videoIndex, router: self)
             else { return }
             navigationController.pushViewController(filmViewController, animated: true)
         }

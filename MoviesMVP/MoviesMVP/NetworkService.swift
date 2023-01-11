@@ -47,11 +47,11 @@ final class NetworkService: NetworkServiceProtocol {
 
     // MARK: - Public methods
 
-    func loadFilms(page: Int, completion: @escaping (Result<[Movies]?, Error>) -> Void) {
-        loadFilms(page: page, api: category, completion: completion)
+    func fetchFilms(page: Int, completion: @escaping (Result<[Movies]?, Error>) -> Void) {
+        fetchFilms(page: page, api: category, completion: completion)
     }
 
-    func loadFilms(page: Int, api: PurchaseEndPoint, completion: @escaping (Result<[Movies]?, Error>) -> Void) {
+    func fetchFilms(page: Int, api: PurchaseEndPoint, completion: @escaping (Result<[Movies]?, Error>) -> Void) {
         category = api
 
         let queryItemPage = URLQueryItem(name: Constants.queryItemPageName, value: "\(page)")
@@ -62,7 +62,7 @@ final class NetworkService: NetworkServiceProtocol {
         components.path = api.rawValue
         components.queryItems = [queryItemKey, queryItemLanguage, queryItemPage]
 
-        loadObject(urlComponents: components) { result in
+        loadJSON(urlComponents: components) { result in
             switch result {
             case let .success(json):
                 let page = json[Constants.pagesCountKeyString].intValue
@@ -74,14 +74,14 @@ final class NetworkService: NetworkServiceProtocol {
         }
     }
 
-    func loadFilm(index: Int, completion: @escaping (Result<Film, Error>) -> Void) {
+    func fetchFilm(index: Int, completion: @escaping (Result<Film, Error>) -> Void) {
         var components = URLComponents()
         components.scheme = Constants.componentScheme
         components.host = Constants.componentsHost
         components.path = Constants.componentsPath + "\(index)"
         components.queryItems = [queryItemKey, queryItemLanguage]
 
-        loadObject(urlComponents: components) { result in
+        loadJSON(urlComponents: components) { result in
             switch result {
             case let .success(json):
                 let film = Film(json: json)
@@ -92,14 +92,14 @@ final class NetworkService: NetworkServiceProtocol {
         }
     }
 
-    func loadVideos(index: Int, completion: @escaping (Result<[VideoId], Error>) -> Void) {
+    func fetchVideos(index: Int, completion: @escaping (Result<[VideoId], Error>) -> Void) {
         var components = URLComponents()
         components.scheme = Constants.componentScheme
         components.host = Constants.componentsHost
         components.path = Constants.componentsPath + "\(index)" + Constants.videos
         components.queryItems = [queryItemKey, queryItemLanguage]
 
-        loadObject(urlComponents: components) { result in
+        loadJSON(urlComponents: components) { result in
             switch result {
             case let .success(json):
                 let videos = json[Constants.resultsMoviesString].arrayValue.map { VideoId(json: $0) }
@@ -110,7 +110,7 @@ final class NetworkService: NetworkServiceProtocol {
         }
     }
 
-    func loadImage(iconUrl: String, completion: @escaping (Data) -> Void) {
+    func fetchData(iconUrl: String, completion: @escaping (Data) -> Void) {
         guard let url = URL(string: iconUrl) else { return }
         AF.request(url).responseData { response in
             switch response.result {
@@ -124,7 +124,7 @@ final class NetworkService: NetworkServiceProtocol {
 
     // MARK: - Private methods
 
-    private func loadObject(
+    private func loadJSON(
         urlComponents: URLComponents,
         completion: @escaping (Result<JSON, Error>) -> Void
     ) {

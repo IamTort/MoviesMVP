@@ -16,7 +16,7 @@ final class MainPresenter: MainViewPresenterProtocol {
 
     var networkService: NetworkServiceProtocol?
     var movies: [Movies]?
-    var pageInfo: Int?
+    var moviesPageInfo: Int?
 
     // MARK: - Private property
 
@@ -26,11 +26,11 @@ final class MainPresenter: MainViewPresenterProtocol {
 
     // MARK: - Initializer
 
-    required init(view: MainViewProtocol, networkService: NetworkServiceProtocol, router: RouterProtocol) {
+    init(view: MainViewProtocol, networkService: NetworkServiceProtocol, router: RouterProtocol) {
         self.view = view
         self.networkService = networkService
         self.router = router
-        getMovies()
+        fetchMovies()
     }
 
     // MARK: - Public methods
@@ -39,9 +39,9 @@ final class MainPresenter: MainViewPresenterProtocol {
         router?.showDetail(filmId: filmId)
     }
 
-    func getMovies() {
+    func fetchMovies() {
         UserDefaults.standard.set(Constants.apiValueString, forKey: Constants.apiKeyString)
-        networkService?.loadFilms(page: 1, api: PurchaseEndPoint.popular) { [weak self] result in
+        networkService?.fetchFilms(page: 1, api: PurchaseEndPoint.popular) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case let .success(movies):
@@ -49,7 +49,7 @@ final class MainPresenter: MainViewPresenterProtocol {
                     return
                 }
                 self.movies = movies
-                self.pageInfo = movies.first?.pageCount
+                self.moviesPageInfo = movies.first?.pageCount
                 self.view?.reloadTableView()
             case let .failure(error):
                 self.view?.failure(error: error)
@@ -67,11 +67,11 @@ final class MainPresenter: MainViewPresenterProtocol {
             }
         }
 
-        networkService?.loadFilms(page: 1, api: category) { [weak self] result in
+        networkService?.fetchFilms(page: 1, api: category) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case let .success(movies):
-                self.pageInfo = movies?.first?.pageCount
+                self.moviesPageInfo = movies?.first?.pageCount
                 self.movies = movies
                 self.view?.scrollToTop()
                 self.view?.reloadTableView()
@@ -83,24 +83,24 @@ final class MainPresenter: MainViewPresenterProtocol {
     }
 
     func fetchNextMovies() {
-        guard let pageInfo = pageInfo,
+        guard let pageInfo = moviesPageInfo,
               page < pageInfo else { return }
         page += 1
-        loadMore(page: page)
+        fetchMovies(page: page)
         view?.reloadTableView()
     }
 
     // MARK: - Private methods
 
-    private func loadMore(page: Int) {
-        networkService?.loadFilms(page: page) { [weak self] result in
+    private func fetchMovies(page: Int) {
+        networkService?.fetchFilms(page: page) { [weak self] result in
             guard let self = self,
                   var films = self.movies else { return }
             switch result {
             case let .success(movies):
                 guard let movies = movies else { return }
                 films += movies
-                self.pageInfo = movies.first?.pageCount
+                self.moviesPageInfo = movies.first?.pageCount
                 self.view?.reloadTableView()
             case let .failure(error):
                 self.view?.failure(error: error)

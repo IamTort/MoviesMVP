@@ -7,9 +7,8 @@ import Foundation
 protocol MainViewPresenterProtocol: AnyObject {
     var networkService: NetworkServiceProtocol? { get set }
     var movies: [Movies]? { get set }
-    var pageInfo: Int? { get set }
-    init(view: MainViewProtocol, networkService: NetworkServiceProtocol, router: RouterProtocol)
-    func getMovies()
+    var moviesPageInfo: Int? { get set }
+    func fetchMovies()
     func updateFilmsCategory(sender: Int)
     func fetchNextMovies()
     func tapOnTheFilm(filmId: Int)
