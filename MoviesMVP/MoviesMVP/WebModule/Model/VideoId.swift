@@ -2,13 +2,16 @@
 // Copyright © RoadMap. All rights reserved.
 
 import Foundation
-
-/// Модель массива информации о видео
-struct ResultVideos: Decodable {
-    let results: [VideoId]
-}
+import SwiftyJSON
 
 /// Ключ от видео
 struct VideoId: Decodable {
+    /// Ключ
     let key: String
+
+    // MARK: - Initializer
+
+    init(json: JSON) {
+        key = json["key"].stringValue
+    }
 }

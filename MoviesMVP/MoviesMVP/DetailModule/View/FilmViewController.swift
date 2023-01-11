@@ -154,34 +154,18 @@ final class FilmViewController: UIViewController {
         return button
     }()
 
-    // MARK: - Private property
-
-    private var filmInfo: Film?
-
     // MARK: - Public property
 
-    var filmIndex: Int?
+    var presenter: FilmViewPresenterProtocol?
 
     // MARK: - LifeCycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        loadFilmData()
     }
 
     // MARK: - Private methods
-
-    private func loadFilmData() {
-        guard let index = filmIndex else { return }
-        Service.shared.loadFilm(index: index) { [weak self] result in
-            self?.filmInfo = result
-            DispatchQueue.main.async {
-                self?.navigationItem.title = result.title
-                self?.setupData(data: result)
-            }
-        }
-    }
 
     private func setupUI() {
         view.backgroundColor = .systemGray5
@@ -267,11 +251,23 @@ final class FilmViewController: UIViewController {
 
             trailerLabel.leadingAnchor.constraint(equalTo: webViewButton.trailingAnchor, constant: 10),
             trailerLabel.bottomAnchor.constraint(equalTo: webViewButton.bottomAnchor, constant: 2)
-
         ])
     }
 
-    private func setupData(data: Film) {
+    @objc private func goWebViewAction() {
+        guard let index = presenter?.filmInfo?.id else { return }
+        presenter?.tapLoadVideo(videoIndex: index)
+    }
+}
+
+// MARK: - FilmViewProtocol
+
+extension FilmViewController: FilmViewProtocol {
+    func showAlert(title: String, message: String) {
+        showErrorAlert(title: title, message: message)
+    }
+
+    func setupData(data: Film) {
         filmImageView.loadImage(with: data.poster)
         titleLabel.attributedText = NSMutableAttributedString().normal("\(data.title) ")
             .normalGray("(\(data.release.prefix(4)))")
@@ -279,13 +275,7 @@ final class FilmViewController: UIViewController {
         taglineLabel.text = "\(data.tagline)"
         descriptionLabel.text = data.overview
         genresLabel.text =
-            "\(data.genres.map(\.name).joined(separator: ", ")) \(Constants.dot) \((data.runtime) / 60)" +
+            "\(data.genres.map { $0 }.joined(separator: ", ")) \(Constants.dot) \((data.runtime) / 60)" +
             " \(Constants.hours) \((data.runtime) % 60) \(Constants.minutes)"
-    }
-
-    @objc private func goWebViewAction() {
-        let fvc = WebViewController()
-        fvc.filmIndex = filmIndex
-        present(fvc, animated: true)
     }
 }

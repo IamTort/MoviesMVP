@@ -15,8 +15,10 @@ final class MoviesViewController: UIViewController {
         static let chevronLeftImageName = "chevron.left"
         static let chevronRightImageName = "chevron.right"
         static let movies = "Фильмы"
-        static let keyValue = "a5b0bb6ebe58602d88ccf2463076122b"
-        static let key = "apiKey"
+        static let selectedSegmentIndex = 0
+        static let alertTitleString = "Ошибка"
+        static let alertMessageString = "Данные не получены"
+        static let heightRow = 240
     }
 
     // MARK: - Private Visual Components
@@ -24,7 +26,7 @@ final class MoviesViewController: UIViewController {
     private lazy var segmentedControl: UISegmentedControl = {
         let segment = UISegmentedControl(items: items)
         segment.tintColor = UIColor.black
-        segment.selectedSegmentIndex = 0
+        segment.selectedSegmentIndex = Constants.selectedSegmentIndex
         segment.selectedSegmentTintColor = .systemGray2
         segment.addTarget(self, action: #selector(updateTableViewAction), for: .allEvents)
         segment.translatesAutoresizingMaskIntoConstraints = false
@@ -38,33 +40,33 @@ final class MoviesViewController: UIViewController {
         return tableView
     }()
 
+    // MARK: - Public property
+
+    var presenter: MainViewPresenterProtocol?
+
     // MARK: - Private property
 
     private let items = [Constants.popular, Constants.topRated, Constants.upcoming]
-    private var pageInfo: Int?
-    private var films: [FilmInfo] = []
-    private var page = 1
 
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadFilmsData()
         setupUI()
     }
 
-    // MARK: - Private methods
+    // MARK: - Public method
 
-    private func loadFilmsData() {
-        UserDefaults.standard.set(Constants.keyValue, forKey: Constants.key)
-        Service.shared.loadFilms(page: 1, api: PurchaseEndPoint.popular) { [weak self] result in
-            self?.films = result.filmsInfo
-            self?.pageInfo = result.pageCount
-            DispatchQueue.main.async {
-                self?.tableView.reloadData()
-            }
-        }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let currentOffset = scrollView.contentOffset.y
+        let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
+        let deltaOffset = maximumOffset - currentOffset
+
+        guard deltaOffset <= 0 else { return }
+        presenter?.fetchNextMovies()
     }
+
+    // MARK: - Private methods
 
     private func setupUI() {
         tableView.dataSource = self
@@ -74,15 +76,6 @@ final class MoviesViewController: UIViewController {
         view.addSubview(tableView)
         view.addSubview(segmentedControl)
         createConstraint()
-    }
-
-    private func loadMore(page: Int) {
-        Service.shared.loadFilms(page: page) { [weak self] result in
-            self?.films += result.filmsInfo
-            DispatchQueue.main.async {
-                self?.tableView.reloadData()
-            }
-        }
     }
 
     private func createConstraint() {
@@ -96,51 +89,19 @@ final class MoviesViewController: UIViewController {
             segmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             segmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             segmentedControl.heightAnchor.constraint(equalToConstant: 40)
-
         ])
     }
 
     @objc private func updateTableViewAction() {
-        var category: PurchaseEndPoint {
-            switch segmentedControl.selectedSegmentIndex {
-            case 0: return .popular
-            case 1: return .topRated
-            case 2: return .upcoming
-            default:
-                return .popular
-            }
-        }
-
-        Service.shared.loadFilms(page: 1, api: category) { [weak self] result in
-            self?.pageInfo = result.pageCount
-            self?.films = result.filmsInfo
-            DispatchQueue.main.async {
-                self?.tableView.setContentOffset(.zero, animated: true)
-                self?.tableView.reloadData()
-            }
-        }
-    }
-
-    // MARK: - Public method
-
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let currentOffset = scrollView.contentOffset.y
-        let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
-        let deltaOffset = maximumOffset - currentOffset
-
-        guard let pageInfo = pageInfo,
-              deltaOffset <= 0,
-              page < pageInfo else { return }
-        page += 1
-        loadMore(page: page)
+        presenter?.updateFilmsCategory(sender: segmentedControl.selectedSegmentIndex)
     }
 }
 
-// MARK: - UITableViewDelegate, UITableViewDataSource
+// MARK: - UITableViewDataSource
 
-extension MoviesViewController: UITableViewDelegate, UITableViewDataSource {
+extension MoviesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        films.count
+        presenter?.movies?.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -148,22 +109,40 @@ extension MoviesViewController: UITableViewDelegate, UITableViewDataSource {
             withIdentifier: Constants.cellIdentifier,
             for: indexPath
         ) as? FilmTableViewCell {
-            cell.setupData(data: films[indexPath.row])
+            guard let film = presenter?.movies?[indexPath.row] else { return UITableViewCell() }
+            cell.setupData(data: film)
             return cell
         }
         return UITableViewCell()
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        240
+        CGFloat(Constants.heightRow)
     }
+}
 
+// MARK: - UITableViewDelegate
+
+extension MoviesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        guard let filmIndex = presenter?.movies?[indexPath.row].id else { return }
+        presenter?.tapOnTheFilm(filmId: filmIndex)
+    }
+}
 
-        let row = indexPath.row
-        let fvc = FilmViewController()
-        fvc.filmIndex = films[row].id
-        navigationController?.pushViewController(fvc, animated: true)
+// MARK: - MainViewProtocol
+
+extension MoviesViewController: MainViewProtocol {
+    func scrollToTop() {
+        tableView.setContentOffset(.zero, animated: true)
+    }
+
+    func reloadTableView() {
+        tableView.reloadData()
+    }
+
+    func failure(error: Error) {
+        showErrorAlert(title: Constants.alertTitleString, message: Constants.alertMessageString)
     }
 }
