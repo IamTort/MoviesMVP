@@ -128,7 +128,7 @@ extension MoviesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         guard let filmIndex = presenter?.movies?[indexPath.row].id else { return }
-        presenter?.tapOnTheFilm(filmId: filmIndex)
+        presenter?.tapOnFilm(filmId: filmIndex)
     }
 }
 

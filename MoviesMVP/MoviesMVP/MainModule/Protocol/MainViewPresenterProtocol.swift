@@ -11,5 +11,5 @@ protocol MainViewPresenterProtocol: AnyObject {
     func fetchMovies()
     func updateFilmsCategory(sender: Int)
     func fetchNextMovies()
-    func tapOnTheFilm(filmId: Int)
+    func tapOnFilm(filmId: Int)
 }

@@ -35,7 +35,7 @@ final class MainPresenter: MainViewPresenterProtocol {
 
     // MARK: - Public methods
 
-    func tapOnTheFilm(filmId: Int) {
+    func tapOnFilm(filmId: Int) {
         router?.showDetail(filmId: filmId)
     }
 
