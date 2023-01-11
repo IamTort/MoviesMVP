@@ -13,7 +13,7 @@ struct Movies: Decodable {
     /// Описание фильма
     let overview: String
     /// Ссылка на постер фильма
-    let poster: String
+    let posterPath: String
     /// Рейтинг фильма
     let rate: Double
     /// Количество страниц
@@ -25,7 +25,7 @@ struct Movies: Decodable {
         title = json["title"].stringValue
         id = json["id"].intValue
         overview = json["overview"].stringValue
-        poster = json["poster_path"].stringValue
+        posterPath = json["poster_path"].stringValue
         rate = json["vote_average"].doubleValue
         self.pageCount = pageCount
     }

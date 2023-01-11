@@ -139,7 +139,7 @@ final class FilmTableViewCell: UITableViewCell {
         nameLabel.text = data.title
         descriptionLabel.text = data.overview
         rateLabel.text = "\(data.rate)"
-        filmImageView.loadImage(with: data.poster)
+        filmImageView.loadImage(with: data.posterPath)
         colorRateView(data: data)
     }
 

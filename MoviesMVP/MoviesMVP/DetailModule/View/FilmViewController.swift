@@ -268,7 +268,7 @@ extension FilmViewController: FilmViewProtocol {
     }
 
     func setupData(data: Film) {
-        filmImageView.loadImage(with: data.poster)
+        filmImageView.loadImage(with: data.posterPath)
         titleLabel.attributedText = NSMutableAttributedString().normal("\(data.title) ")
             .normalGray("(\(data.release.prefix(4)))")
         rateLabel.text = "\(data.rate)" + Constants.imdbFullRate

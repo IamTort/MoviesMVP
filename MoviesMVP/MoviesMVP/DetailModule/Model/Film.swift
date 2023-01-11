@@ -11,7 +11,7 @@ struct Film: Decodable {
     /// Описание фильма
     let overview: String
     /// Ссылка на постер фильма
-    let poster: String
+    let posterPath: String
     /// Девиз
     let tagline: String
     /// Название фильма
@@ -30,7 +30,7 @@ struct Film: Decodable {
     init(json: JSON) {
         id = json["id"].intValue
         overview = json["overview"].stringValue
-        poster = json["poster_path"].stringValue
+        posterPath = json["poster_path"].stringValue
         tagline = json["tagline"].stringValue
         title = json["title"].stringValue
         rate = json["vote_average"].doubleValue
