@@ -109,8 +109,9 @@ extension MoviesViewController: UITableViewDataSource {
             withIdentifier: Constants.cellIdentifier,
             for: indexPath
         ) as? FilmTableViewCell {
-            guard let film = presenter?.movies?[indexPath.row] else { return UITableViewCell() }
-            cell.setupData(data: film)
+            guard let film = presenter?.movies?[indexPath.row],
+                  let networkService = presenter?.networkService else { return UITableViewCell() }
+            cell.setupData(data: film, networkService: networkService)
             return cell
         }
         return UITableViewCell()

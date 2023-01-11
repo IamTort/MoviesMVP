@@ -110,6 +110,18 @@ final class NetworkService: NetworkServiceProtocol {
         }
     }
 
+    func loadImage(iconUrl: String, completion: @escaping (Data) -> Void) {
+        guard let url = URL(string: iconUrl) else { return }
+        AF.request(url).responseData { response in
+            switch response.result {
+            case let .success(data):
+                completion(data)
+            case .failure:
+                break
+            }
+        }
+    }
+
     // MARK: - Private methods
 
     private func loadObject(

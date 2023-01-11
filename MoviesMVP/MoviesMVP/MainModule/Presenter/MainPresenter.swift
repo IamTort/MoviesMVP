@@ -14,12 +14,12 @@ final class MainPresenter: MainViewPresenterProtocol {
 
     // MARK: - Public property
 
+    var networkService: NetworkServiceProtocol?
     var movies: [Movies]?
     var pageInfo: Int?
 
     // MARK: - Private property
 
-    private let networkService: NetworkServiceProtocol?
     private var router: RouterProtocol?
     private var page = 1
     private weak var view: MainViewProtocol?

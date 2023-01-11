@@ -5,6 +5,7 @@ import Foundation
 
 /// Протокол презентера экрана Фильмов
 protocol MainViewPresenterProtocol: AnyObject {
+    var networkService: NetworkServiceProtocol? { get set }
     var movies: [Movies]? { get set }
     var pageInfo: Int? { get set }
     init(view: MainViewProtocol, networkService: NetworkServiceProtocol, router: RouterProtocol)

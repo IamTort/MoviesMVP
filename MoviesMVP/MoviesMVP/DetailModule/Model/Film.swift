@@ -22,7 +22,7 @@ struct Film: Decodable {
     let release: String
     /// Жанры
     let genres: [String]
-    /// Год выпуска
+    /// Длительность фильма
     let runtime: Int
 
     // MARK: - Initializer

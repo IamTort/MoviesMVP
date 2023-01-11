@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// Роутер экранов Фильмов
+/// Роутер экрана Фильмов
 protocol RouterProtocol: RouterMainProtocol {
     func initialViewController()
     func showDetail(filmId: Int)

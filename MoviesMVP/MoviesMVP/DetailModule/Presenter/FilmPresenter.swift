@@ -43,14 +43,15 @@ final class FilmPresenter: FilmViewPresenterProtocol {
     }
 
     // MARK: - Private method
-
+    
     private func getFilm(index: Int) {
         networkService?.loadFilm(index: index) { [weak self] result in
-            guard let self = self else { return }
+            guard let self = self,
+                  let networkService = self.networkService else { return }
             switch result {
             case let .success(film):
                 self.filmInfo = film
-                self.view?.setupData(data: film)
+                self.view?.setupData(data: film, networkService: networkService)
             case .failure:
                 self.view?.showAlert(title: Constants.alertTitleString, message: Constants.alertMessageString)
             }

@@ -9,4 +9,5 @@ protocol NetworkServiceProtocol {
     func loadFilms(page: Int, api: PurchaseEndPoint, completion: @escaping (Result<[Movies]?, Error>) -> Void)
     func loadFilm(index: Int, completion: @escaping (Result<Film, Error>) -> Void)
     func loadVideos(index: Int, completion: @escaping (Result<[VideoId], Error>) -> Void)
+    func loadImage(iconUrl: String, completion: @escaping (Data) -> Void)
 }

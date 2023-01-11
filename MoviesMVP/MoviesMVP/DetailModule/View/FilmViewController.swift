@@ -266,16 +266,16 @@ extension FilmViewController: FilmViewProtocol {
     func showAlert(title: String, message: String) {
         showErrorAlert(title: title, message: message)
     }
-
-    func setupData(data: Film) {
-        filmImageView.loadImage(with: data.posterPath)
+    
+    func setupData(data: Film, networkService: NetworkServiceProtocol) {
+        filmImageView.loadImage(with: data.posterPath, networkService: networkService)
         titleLabel.attributedText = NSMutableAttributedString().normal("\(data.title) ")
             .normalGray("(\(data.release.prefix(4)))")
         rateLabel.text = "\(data.rate)" + Constants.imdbFullRate
         taglineLabel.text = "\(data.tagline)"
         descriptionLabel.text = data.overview
         genresLabel.text =
-            "\(data.genres.map { $0 }.joined(separator: ", ")) \(Constants.dot) \((data.runtime) / 60)" +
-            " \(Constants.hours) \((data.runtime) % 60) \(Constants.minutes)"
+        "\(data.genres.map { $0 }.joined(separator: ", ")) \(Constants.dot) \((data.runtime) / 60)" +
+        " \(Constants.hours) \((data.runtime) % 60) \(Constants.minutes)"
     }
 }

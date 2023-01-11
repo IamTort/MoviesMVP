@@ -135,11 +135,11 @@ final class FilmTableViewCell: UITableViewCell {
 
     // MARK: - Public methods
 
-    func setupData(data: Movies) {
+    func setupData(data: Movies, networkService: NetworkServiceProtocol) {
         nameLabel.text = data.title
         descriptionLabel.text = data.overview
         rateLabel.text = "\(data.rate)"
-        filmImageView.loadImage(with: data.posterPath)
+        filmImageView.loadImage(with: data.posterPath, networkService: networkService)
         colorRateView(data: data)
     }
 
