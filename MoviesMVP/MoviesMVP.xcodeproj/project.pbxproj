@@ -39,7 +39,6 @@
 		FADB8B25296E5513001A2065 /* NetworkServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADB8B24296E5513001A2065 /* NetworkServiceProtocol.swift */; };
 		FADB8B27296E58D4001A2065 /* RouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADB8B26296E58D4001A2065 /* RouterProtocol.swift */; };
 		FADB8B29296E58EA001A2065 /* RouterMainProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADB8B28296E58EA001A2065 /* RouterMainProtocol.swift */; };
-		FADB8B2B296EA215001A2065 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADB8B2A296EA215001A2065 /* UIImageView+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,7 +74,6 @@
 		FADB8B24296E5513001A2065 /* NetworkServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceProtocol.swift; sourceTree = "<group>"; };
 		FADB8B26296E58D4001A2065 /* RouterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterProtocol.swift; sourceTree = "<group>"; };
 		FADB8B28296E58EA001A2065 /* RouterMainProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterMainProtocol.swift; sourceTree = "<group>"; };
-		FADB8B2A296EA215001A2065 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,7 +134,6 @@
 			children = (
 				FAD44454290FB6B8006E71AF /* NSMutableAttributedString + Extension.swift */,
 				FADB8B11296E449B001A2065 /* UIViewController+Extension.swift */,
-				FADB8B2A296EA215001A2065 /* UIImageView+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -425,7 +422,6 @@
 				FADB8B17296E4931001A2065 /* MainViewPresenterProtocol.swift in Sources */,
 				FADB8AFD296DC641001A2065 /* MainPresenter.swift in Sources */,
 				FADB8B21296E5101001A2065 /* WebViewPresenterProtocol.swift in Sources */,
-				FADB8B2B296EA215001A2065 /* UIImageView+Extension.swift in Sources */,
 				FADB8B23296E541B001A2065 /*  AssemblyBuilderProtocol.swift in Sources */,
 				FADB8B1A296E4E2A001A2065 /* FilmViewProtocol.swift in Sources */,
 				FAD4442529072486006E71AF /* NetworkService.swift in Sources */,

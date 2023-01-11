@@ -140,8 +140,21 @@ final class FilmTableViewCell: UITableViewCell {
         nameLabel.text = data.title
         descriptionLabel.text = data.overview
         rateLabel.text = "\(data.rate)"
-        filmImageView.loadImage(with: data.posterPath, networkService: networkService)
+        fetchData(pathString: data.posterPath, networkService: networkService)
         colorRateView(data: data)
+    }
+
+    func fetchData(pathString: String, networkService: NetworkServiceProtocol) {
+        let iconUrl = "\(PurchaseEndPoint.link.rawValue)\(pathString)"
+        networkService.fetchData(iconUrl: iconUrl) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case let .success(data):
+                self.filmImageView.image = UIImage(data: data)
+            case let .failure(error):
+                print(error.localizedDescription)
+            }
+        }
     }
 
     override func prepareForReuse() {

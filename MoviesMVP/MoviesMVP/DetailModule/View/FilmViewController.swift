@@ -268,8 +268,21 @@ extension FilmViewController: FilmViewProtocol {
         showErrorAlert(title: title, message: message)
     }
 
+    func fetchData(pathString: String, networkService: NetworkServiceProtocol) {
+        let iconUrl = "\(PurchaseEndPoint.link.rawValue)\(pathString)"
+        networkService.fetchData(iconUrl: iconUrl) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case let .success(data):
+                self.filmImageView.image = UIImage(data: data)
+            case let .failure(error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+
     func setupData(data: MovieDetail, networkService: NetworkServiceProtocol) {
-        filmImageView.loadImage(with: data.posterPath, networkService: networkService)
+        fetchData(pathString: data.posterPath, networkService: networkService)
         titleLabel.attributedText = NSMutableAttributedString().normal("\(data.title) ")
             .normalGray("(\(data.release.prefix(4)))")
         rateLabel.text = "\(data.rate)" + Constants.imdbFullRate

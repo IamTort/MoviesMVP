@@ -1,4 +1,4 @@
-// Movie.swift
+// MovieDetail.swift
 // Copyright © RoadMap. All rights reserved.
 
 import Foundation
