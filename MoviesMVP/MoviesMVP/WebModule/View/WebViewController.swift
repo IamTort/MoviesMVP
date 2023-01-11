@@ -9,13 +9,6 @@ import WebKit
 
 /// Экран вебвью
 final class WebViewController: UIViewController {
-    // MARK: - Private Enum
-
-    private enum Constants {
-        static let urlShemeHostPath = "https://www.themoviedb.org/movie/"
-        static let urlFragment = "#play="
-    }
-
     // MARK: - Private Visual Components
 
     private lazy var webView: WKWebView = {
@@ -26,19 +19,14 @@ final class WebViewController: UIViewController {
         return webView
     }()
 
-    // MARK: - Private property
-
-    private var filmInfo: [VideoId]?
-
     // MARK: - Public property
 
-    var filmIndex: Int?
+    var presenter: WebViewPresenterProtocol?
 
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadWebViewData()
         setupUI()
     }
 
@@ -48,25 +36,6 @@ final class WebViewController: UIViewController {
         view.backgroundColor = .white
         view.addSubview(webView)
         createConstraints()
-    }
-
-    private func loadWebViewData() {
-        guard let index = filmIndex else { return }
-        Service.shared.loadVideos(index: index) { [weak self] result in
-
-            guard result.count != 0,
-                  let url =
-                  URL(string: "\(Constants.urlShemeHostPath)\(index)\(Constants.urlFragment)\(result[0].key)")
-            else {
-                DispatchQueue.main.async {
-                    self?.dismiss(animated: true)
-                }
-                return
-            }
-            DispatchQueue.main.async {
-                self?.webView.load(URLRequest(url: url))
-            }
-        }
     }
 
     private func createConstraints() {
@@ -82,3 +51,19 @@ final class WebViewController: UIViewController {
 // MARK: - WKNavigationDelegate, WKUIDelegate
 
 extension WebViewController: WKNavigationDelegate, WKUIDelegate {}
+
+// MARK: - WebViewProtocol
+
+extension WebViewController: WebViewProtocol {
+    func showAlert(title: String, message: String) {
+        showErrorAlert(title: title, message: message)
+    }
+
+    func loadWebView(url: URL) {
+        webView.load(URLRequest(url: url))
+    }
+
+    func goBack() {
+        dismiss(animated: true)
+    }
+}

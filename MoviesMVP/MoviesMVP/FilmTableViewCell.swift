@@ -11,6 +11,7 @@ final class FilmTableViewCell: UITableViewCell {
         static let nameFont = "Helvetica-Bold"
         static let errorMessage = "init(coder:) has not been implemented"
         static let green = "green"
+        static let rateNumber = 7
     }
 
     // MARK: - Private Visual Components
@@ -125,8 +126,8 @@ final class FilmTableViewCell: UITableViewCell {
         ])
     }
 
-    private func colorRateView(data: FilmInfo) {
-        if data.rate >= 7 {
+    private func colorRateView(data: Movie) {
+        if data.rate >= Double(Constants.rateNumber) {
             rateView.backgroundColor = UIColor(named: Constants.green)
         } else {
             rateView.backgroundColor = .gray
@@ -135,12 +136,25 @@ final class FilmTableViewCell: UITableViewCell {
 
     // MARK: - Public methods
 
-    func setupData(data: FilmInfo) {
+    func setupData(data: Movie, networkService: NetworkServiceProtocol) {
         nameLabel.text = data.title
         descriptionLabel.text = data.overview
         rateLabel.text = "\(data.rate)"
-        filmImageView.loadImage(with: data.poster)
+        fetchData(pathString: data.posterPath, networkService: networkService)
         colorRateView(data: data)
+    }
+
+    func fetchData(pathString: String, networkService: NetworkServiceProtocol) {
+        let iconUrl = "\(PurchaseEndPoint.link.rawValue)\(pathString)"
+        networkService.fetchData(iconUrl: iconUrl) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case let .success(data):
+                self.filmImageView.image = UIImage(data: data)
+            case let .failure(error):
+                print(error.localizedDescription)
+            }
+        }
     }
 
     override func prepareForReuse() {
