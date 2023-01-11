@@ -3,7 +3,7 @@
 
 import UIKit
 
-/// Строитель  контроллеров
+/// Сборщик модулей
 final class AssemblyBuilder: AssemblyBuilderProtocol {
     // MARK: - Public methods
 
@@ -18,7 +18,7 @@ final class AssemblyBuilder: AssemblyBuilderProtocol {
     func makeDetailModule(filmIndex: Int, router: RouterProtocol) -> UIViewController {
         let view = FilmViewController()
         let networkService = NetworkService()
-        let presenter = FilmPresenter(view: view, networkService: networkService, filmIndex: filmIndex, router: router)
+        let presenter = MoviePresenter(view: view, networkService: networkService, filmIndex: filmIndex, router: router)
         view.presenter = presenter
         return view
     }

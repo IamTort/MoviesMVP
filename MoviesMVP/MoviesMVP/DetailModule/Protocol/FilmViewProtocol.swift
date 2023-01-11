@@ -5,6 +5,6 @@ import Foundation
 
 /// Протокол экрана Фильма
 protocol FilmViewProtocol: AnyObject {
-    func setupData(data: Film, networkService: NetworkServiceProtocol)
+    func setupData(data: MovieDetail, networkService: NetworkServiceProtocol)
     func showAlert(title: String, message: String)
 }

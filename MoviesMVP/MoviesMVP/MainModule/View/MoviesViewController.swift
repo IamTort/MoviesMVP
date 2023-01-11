@@ -19,6 +19,7 @@ final class MoviesViewController: UIViewController {
         static let alertTitleString = "Ошибка"
         static let alertMessageString = "Данные не получены"
         static let heightRow = 240
+        static let offsetIndex = 0
     }
 
     // MARK: - Private Visual Components
@@ -62,7 +63,7 @@ final class MoviesViewController: UIViewController {
         let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
         let deltaOffset = maximumOffset - currentOffset
 
-        guard deltaOffset <= 0 else { return }
+        guard deltaOffset <= CGFloat(Constants.offsetIndex) else { return }
         presenter?.fetchNextMovies()
     }
 
@@ -93,7 +94,7 @@ final class MoviesViewController: UIViewController {
     }
 
     @objc private func updateTableViewAction() {
-        presenter?.updateFilmsCategory(sender: segmentedControl.selectedSegmentIndex)
+        presenter?.updateMoviesCategory(sender: segmentedControl.selectedSegmentIndex)
     }
 }
 

@@ -12,7 +12,10 @@ final class Router: RouterProtocol {
 
     // MARK: - Initializer
 
-    init(navigationController: UINavigationController, assemblyBuilder: AssemblyBuilderProtocol) {
+    init(
+        navigationController: UINavigationController,
+        assemblyBuilder: AssemblyBuilderProtocol
+    ) {
         self.navigationController = navigationController
         self.assemblyBuilder = assemblyBuilder
     }

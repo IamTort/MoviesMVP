@@ -13,11 +13,11 @@
 		FAD444132906E5AF006E71AF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAD444112906E5AF006E71AF /* Main.storyboard */; };
 		FAD444152906E5B1006E71AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAD444142906E5B1006E71AF /* Assets.xcassets */; };
 		FAD444182906E5B1006E71AF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAD444162906E5B1006E71AF /* LaunchScreen.storyboard */; };
-		FAD444232907234E006E71AF /* Movies.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD444222907234E006E71AF /* Movies.swift */; };
+		FAD444232907234E006E71AF /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD444222907234E006E71AF /* Movie.swift */; };
 		FAD4442529072486006E71AF /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD4442429072486006E71AF /* NetworkService.swift */; };
 		FAD44429290735B3006E71AF /* FilmTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD44428290735B3006E71AF /* FilmTableViewCell.swift */; };
 		FAD4442D2909743E006E71AF /* FilmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD4442C2909743E006E71AF /* FilmViewController.swift */; };
-		FAD4442F290A9B55006E71AF /* Film.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD4442E290A9B55006E71AF /* Film.swift */; };
+		FAD4442F290A9B55006E71AF /* MovieDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD4442E290A9B55006E71AF /* MovieDetail.swift */; };
 		FAD44431290B1407006E71AF /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD44430290B1407006E71AF /* WebViewController.swift */; };
 		FAD44433290B28E4006E71AF /* VideoId.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD44432290B28E4006E71AF /* VideoId.swift */; };
 		FAD44455290FB6B8006E71AF /* NSMutableAttributedString + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD44454290FB6B8006E71AF /* NSMutableAttributedString + Extension.swift */; };
@@ -25,14 +25,14 @@
 		FADB8AF6296DC264001A2065 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = FADB8AF5296DC264001A2065 /* SwiftyJSON */; };
 		FADB8AF9296DC495001A2065 /* AssemblyBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADB8AF8296DC495001A2065 /* AssemblyBuilder.swift */; };
 		FADB8AFD296DC641001A2065 /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADB8AFC296DC641001A2065 /* MainPresenter.swift */; };
-		FADB8B06296DEE4B001A2065 /* FilmPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADB8B05296DEE4B001A2065 /* FilmPresenter.swift */; };
+		FADB8B06296DEE4B001A2065 /* MoviePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADB8B05296DEE4B001A2065 /* MoviePresenter.swift */; };
 		FADB8B0C296DFBDA001A2065 /* WebPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADB8B0B296DFBDA001A2065 /* WebPresenter.swift */; };
 		FADB8B10296E2CBE001A2065 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADB8B0F296E2CBE001A2065 /* Router.swift */; };
 		FADB8B12296E449B001A2065 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADB8B11296E449B001A2065 /* UIViewController+Extension.swift */; };
 		FADB8B15296E47E1001A2065 /* MainViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADB8B14296E47E1001A2065 /* MainViewProtocol.swift */; };
 		FADB8B17296E4931001A2065 /* MainViewPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADB8B16296E4931001A2065 /* MainViewPresenterProtocol.swift */; };
 		FADB8B1A296E4E2A001A2065 /* FilmViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADB8B19296E4E2A001A2065 /* FilmViewProtocol.swift */; };
-		FADB8B1C296E4E86001A2065 /* FilmViewPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADB8B1B296E4E86001A2065 /* FilmViewPresenterProtocol.swift */; };
+		FADB8B1C296E4E86001A2065 /* MovieViewPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADB8B1B296E4E86001A2065 /* MovieViewPresenterProtocol.swift */; };
 		FADB8B1F296E50D7001A2065 /* WebViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADB8B1E296E50D7001A2065 /* WebViewProtocol.swift */; };
 		FADB8B21296E5101001A2065 /* WebViewPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADB8B20296E5101001A2065 /* WebViewPresenterProtocol.swift */; };
 		FADB8B23296E541B001A2065 /*  AssemblyBuilderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADB8B22296E541B001A2065 /*  AssemblyBuilderProtocol.swift */; };
@@ -51,24 +51,24 @@
 		FAD444142906E5B1006E71AF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FAD444172906E5B1006E71AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FAD444192906E5B1006E71AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FAD444222907234E006E71AF /* Movies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movies.swift; sourceTree = "<group>"; };
+		FAD444222907234E006E71AF /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		FAD4442429072486006E71AF /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		FAD44428290735B3006E71AF /* FilmTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmTableViewCell.swift; sourceTree = "<group>"; };
 		FAD4442C2909743E006E71AF /* FilmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmViewController.swift; sourceTree = "<group>"; };
-		FAD4442E290A9B55006E71AF /* Film.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Film.swift; sourceTree = "<group>"; };
+		FAD4442E290A9B55006E71AF /* MovieDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetail.swift; sourceTree = "<group>"; };
 		FAD44430290B1407006E71AF /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		FAD44432290B28E4006E71AF /* VideoId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoId.swift; sourceTree = "<group>"; };
 		FAD44454290FB6B8006E71AF /* NSMutableAttributedString + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString + Extension.swift"; sourceTree = "<group>"; };
 		FADB8AF8296DC495001A2065 /* AssemblyBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssemblyBuilder.swift; sourceTree = "<group>"; };
 		FADB8AFC296DC641001A2065 /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
-		FADB8B05296DEE4B001A2065 /* FilmPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmPresenter.swift; sourceTree = "<group>"; };
+		FADB8B05296DEE4B001A2065 /* MoviePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviePresenter.swift; sourceTree = "<group>"; };
 		FADB8B0B296DFBDA001A2065 /* WebPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebPresenter.swift; sourceTree = "<group>"; };
 		FADB8B0F296E2CBE001A2065 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		FADB8B11296E449B001A2065 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		FADB8B14296E47E1001A2065 /* MainViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewProtocol.swift; sourceTree = "<group>"; };
 		FADB8B16296E4931001A2065 /* MainViewPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewPresenterProtocol.swift; sourceTree = "<group>"; };
 		FADB8B19296E4E2A001A2065 /* FilmViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmViewProtocol.swift; sourceTree = "<group>"; };
-		FADB8B1B296E4E86001A2065 /* FilmViewPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmViewPresenterProtocol.swift; sourceTree = "<group>"; };
+		FADB8B1B296E4E86001A2065 /* MovieViewPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieViewPresenterProtocol.swift; sourceTree = "<group>"; };
 		FADB8B1E296E50D7001A2065 /* WebViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewProtocol.swift; sourceTree = "<group>"; };
 		FADB8B20296E5101001A2065 /* WebViewPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewPresenterProtocol.swift; sourceTree = "<group>"; };
 		FADB8B22296E541B001A2065 /*  AssemblyBuilderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " AssemblyBuilderProtocol.swift"; sourceTree = "<group>"; };
@@ -180,7 +180,7 @@
 		FADB8AFF296DCE53001A2065 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				FAD444222907234E006E71AF /* Movies.swift */,
+				FAD444222907234E006E71AF /* Movie.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -208,7 +208,7 @@
 		FADB8B02296DEDF5001A2065 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				FAD4442E290A9B55006E71AF /* Film.swift */,
+				FAD4442E290A9B55006E71AF /* MovieDetail.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -224,7 +224,7 @@
 		FADB8B04296DEE07001A2065 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
-				FADB8B05296DEE4B001A2065 /* FilmPresenter.swift */,
+				FADB8B05296DEE4B001A2065 /* MoviePresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -277,7 +277,7 @@
 			isa = PBXGroup;
 			children = (
 				FADB8B19296E4E2A001A2065 /* FilmViewProtocol.swift */,
-				FADB8B1B296E4E86001A2065 /* FilmViewPresenterProtocol.swift */,
+				FADB8B1B296E4E86001A2065 /* MovieViewPresenterProtocol.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -415,10 +415,10 @@
 				FADB8B12296E449B001A2065 /* UIViewController+Extension.swift in Sources */,
 				FAD444102906E5AF006E71AF /* MoviesViewController.swift in Sources */,
 				FADB8AF9296DC495001A2065 /* AssemblyBuilder.swift in Sources */,
-				FADB8B06296DEE4B001A2065 /* FilmPresenter.swift in Sources */,
+				FADB8B06296DEE4B001A2065 /* MoviePresenter.swift in Sources */,
 				FADB8B0C296DFBDA001A2065 /* WebPresenter.swift in Sources */,
 				FADB8B1F296E50D7001A2065 /* WebViewProtocol.swift in Sources */,
-				FAD444232907234E006E71AF /* Movies.swift in Sources */,
+				FAD444232907234E006E71AF /* Movie.swift in Sources */,
 				FAD4442D2909743E006E71AF /* FilmViewController.swift in Sources */,
 				FAD44431290B1407006E71AF /* WebViewController.swift in Sources */,
 				FADB8B27296E58D4001A2065 /* RouterProtocol.swift in Sources */,
@@ -432,14 +432,14 @@
 				FADB8B10296E2CBE001A2065 /* Router.swift in Sources */,
 				FAD44429290735B3006E71AF /* FilmTableViewCell.swift in Sources */,
 				FAD4440C2906E5AF006E71AF /* AppDelegate.swift in Sources */,
-				FAD4442F290A9B55006E71AF /* Film.swift in Sources */,
+				FAD4442F290A9B55006E71AF /* MovieDetail.swift in Sources */,
 				FAD4440E2906E5AF006E71AF /* SceneDelegate.swift in Sources */,
 				FAD44455290FB6B8006E71AF /* NSMutableAttributedString + Extension.swift in Sources */,
 				FADB8B29296E58EA001A2065 /* RouterMainProtocol.swift in Sources */,
 				FAD44433290B28E4006E71AF /* VideoId.swift in Sources */,
 				FADB8B15296E47E1001A2065 /* MainViewProtocol.swift in Sources */,
 				FADB8B25296E5513001A2065 /* NetworkServiceProtocol.swift in Sources */,
-				FADB8B1C296E4E86001A2065 /* FilmViewPresenterProtocol.swift in Sources */,
+				FADB8B1C296E4E86001A2065 /* MovieViewPresenterProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -156,13 +156,14 @@ final class FilmViewController: UIViewController {
 
     // MARK: - Public property
 
-    var presenter: FilmViewPresenterProtocol?
+    var presenter: MovieViewPresenterProtocol?
 
     // MARK: - LifeCycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        presenter?.fetchMovie()
     }
 
     // MARK: - Private methods
@@ -255,7 +256,7 @@ final class FilmViewController: UIViewController {
     }
 
     @objc private func goWebViewAction() {
-        guard let index = presenter?.filmInfo?.id else { return }
+        guard let index = presenter?.movie?.id else { return }
         presenter?.tapLoadVideo(videoIndex: index)
     }
 }
@@ -267,7 +268,7 @@ extension FilmViewController: FilmViewProtocol {
         showErrorAlert(title: title, message: message)
     }
 
-    func setupData(data: Film, networkService: NetworkServiceProtocol) {
+    func setupData(data: MovieDetail, networkService: NetworkServiceProtocol) {
         filmImageView.loadImage(with: data.posterPath, networkService: networkService)
         titleLabel.attributedText = NSMutableAttributedString().normal("\(data.title) ")
             .normalGray("(\(data.release.prefix(4)))")

@@ -15,7 +15,7 @@ final class MainPresenter: MainViewPresenterProtocol {
     // MARK: - Public property
 
     var networkService: NetworkServiceProtocol?
-    var movies: [Movies]?
+    var movies: [Movie]?
     var moviesPageInfo: Int?
 
     // MARK: - Private property
@@ -41,7 +41,7 @@ final class MainPresenter: MainViewPresenterProtocol {
 
     func fetchMovies() {
         UserDefaults.standard.set(Constants.apiValueString, forKey: Constants.apiKeyString)
-        networkService?.fetchFilms(page: 1, api: PurchaseEndPoint.popular) { [weak self] result in
+        networkService?.fetchMovies(page: 1, api: PurchaseEndPoint.popular) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case let .success(movies):
@@ -57,17 +57,21 @@ final class MainPresenter: MainViewPresenterProtocol {
         }
     }
 
-    func updateFilmsCategory(sender: Int) {
+    func updateMoviesCategory(sender: Int) {
         var category: PurchaseEndPoint {
             switch sender {
-            case 0: return .popular
-            case 1: return .topRated
-            case 2: return .upcoming
-            default: return .popular
+            case 0:
+                return .popular
+            case 1:
+                return .topRated
+            case 2:
+                return .upcoming
+            default:
+                return .popular
             }
         }
 
-        networkService?.fetchFilms(page: 1, api: category) { [weak self] result in
+        networkService?.fetchMovies(page: 1, api: category) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case let .success(movies):
@@ -93,7 +97,7 @@ final class MainPresenter: MainViewPresenterProtocol {
     // MARK: - Private methods
 
     private func fetchMovies(page: Int) {
-        networkService?.fetchFilms(page: page) { [weak self] result in
+        networkService?.fetchMovies(page: page) { [weak self] result in
             guard let self = self,
                   var films = self.movies else { return }
             switch result {

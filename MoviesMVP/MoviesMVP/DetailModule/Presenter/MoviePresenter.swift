@@ -1,10 +1,10 @@
-// FilmPresenter.swift
+// MoviePresenter.swift
 // Copyright © RoadMap. All rights reserved.
 
 import Foundation
 
 /// Презентер экрана Фильма
-final class FilmPresenter: FilmViewPresenterProtocol {
+final class MoviePresenter: MovieViewPresenterProtocol {
     // MARK: - Private Enum
 
     private enum Constants {
@@ -14,11 +14,12 @@ final class FilmPresenter: FilmViewPresenterProtocol {
 
     // MARK: - Public property
 
-    var filmInfo: Film?
+    var movie: MovieDetail?
 
     // MARK: - Private property
 
     private let networkService: NetworkServiceProtocol?
+    private var filmIndex: Int?
     private var router: RouterProtocol?
     private weak var view: FilmViewProtocol?
 
@@ -33,7 +34,7 @@ final class FilmPresenter: FilmViewPresenterProtocol {
         self.view = view
         self.networkService = networkService
         self.router = router
-        getFilm(index: filmIndex)
+        self.filmIndex = filmIndex
     }
 
     // MARK: - Public method
@@ -44,14 +45,15 @@ final class FilmPresenter: FilmViewPresenterProtocol {
 
     // MARK: - Private method
 
-    private func getFilm(index: Int) {
-        networkService?.fetchFilm(index: index) { [weak self] result in
+    func fetchMovie() {
+        guard let index = filmIndex else { return }
+        networkService?.fetchMovie(index: index) { [weak self] result in
             guard let self = self,
                   let networkService = self.networkService else { return }
             switch result {
-            case let .success(film):
-                self.filmInfo = film
-                self.view?.setupData(data: film, networkService: networkService)
+            case let .success(movie):
+                self.movie = movie
+                self.view?.setupData(data: movie, networkService: networkService)
             case .failure:
                 self.view?.showAlert(title: Constants.alertTitleString, message: Constants.alertMessageString)
             }

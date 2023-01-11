@@ -4,8 +4,8 @@
 import Foundation
 import SwiftyJSON
 
-/// Модель фильма
-struct Movies: Decodable {
+/// Модель фильма для главного экрана
+struct Movie: Decodable {
     /// Название фильма
     let title: String
     /// Идентификатор фильма

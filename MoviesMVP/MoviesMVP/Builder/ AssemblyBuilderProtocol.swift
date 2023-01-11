@@ -3,7 +3,7 @@
 
 import UIKit
 
-/// Протокол строителя
+/// Протокол сборщика модулей
 protocol AssemblyBuilderProtocol {
     func makeMainModule(router: RouterProtocol) -> UIViewController
     func makeDetailModule(filmIndex: Int, router: RouterProtocol) -> UIViewController

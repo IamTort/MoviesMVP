@@ -1,10 +1,11 @@
-// FilmViewPresenterProtocol.swift
+// MovieViewPresenterProtocol.swift
 // Copyright © RoadMap. All rights reserved.
 
 import Foundation
 
 /// Протокол презентера экрана Фильма
-protocol FilmViewPresenterProtocol: AnyObject {
-    var filmInfo: Film? { get set }
+protocol MovieViewPresenterProtocol: AnyObject {
+    var movie: MovieDetail? { get set }
+    func fetchMovie()
     func tapLoadVideo(videoIndex: Int)
 }

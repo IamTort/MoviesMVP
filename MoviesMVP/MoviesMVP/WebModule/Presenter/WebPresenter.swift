@@ -16,13 +16,13 @@ final class WebPresenter: WebViewPresenterProtocol {
 
     // MARK: - Private property
 
-    private weak var view: WebViewProtocol?
     private let networkService: NetworkServiceProtocol?
+    private weak var view: WebViewProtocol?
     private var router: RouterProtocol?
 
     // MARK: - Initializer
 
-    required init(
+    init(
         view: WebViewProtocol,
         networkService: NetworkServiceProtocol,
         filmIndex: Int,
@@ -34,9 +34,9 @@ final class WebPresenter: WebViewPresenterProtocol {
         loadWebViewData(index: filmIndex)
     }
 
-    // MARK: - Private methods
+    // MARK: - Public methods
 
-    private func loadWebViewData(index: Int) {
+    func loadWebViewData(index: Int) {
         networkService?.fetchVideos(index: index) { [weak self] result in
             guard let self = self else { return }
             switch result {
