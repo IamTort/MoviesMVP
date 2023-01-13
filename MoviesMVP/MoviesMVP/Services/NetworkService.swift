@@ -34,17 +34,22 @@ final class NetworkService: NetworkServiceProtocol {
 
     // MARK: - Private property
 
-    private let queryItemKey = URLQueryItem(
-        name: Constants.queryItemKeyName,
-        value: KeychainService.shared.getAPIKey()
-    )
-
     private let queryItemLanguage = URLQueryItem(
         name: Constants.queryItemLanguageName,
         value: Constants.queryItemLanguageValue
     )
 
+    private lazy var queryItemKey = URLQueryItem(
+        name: Constants.queryItemKeyName,
+        value: keychainService.getAPIKey(Constants.apiValueKeyName)
+    )
+
     private var category = PurchaseEndPoint.popular
+    private var keychainService: KeychainServiceProtocol
+
+    init(keychainService: KeychainServiceProtocol) {
+        self.keychainService = keychainService
+    }
 
     // MARK: - Public methods
 

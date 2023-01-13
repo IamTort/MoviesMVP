@@ -1,9 +1,9 @@
 // ProxyProtocol.swift
 // Copyright © RoadMap. All rights reserved.
 
-import UIKit
+import Foundation
 
 /// Протокол прокси
 protocol ProxyProtocol {
-    func loadImage(by url: String, completion: @escaping (Result<UIImage, Error>) -> ())
+    func loadImage(by url: String, completion: @escaping (Result<Data, Error>) -> ())
 }

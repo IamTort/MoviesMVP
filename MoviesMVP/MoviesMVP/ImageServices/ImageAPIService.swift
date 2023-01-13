@@ -2,7 +2,7 @@
 // Copyright © RoadMap. All rights reserved.
 
 import Alamofire
-import UIKit
+import Foundation
 
 /// Загрузка фото с сети
 final class ImageAPIService: ImageAPIServiceProtocol {

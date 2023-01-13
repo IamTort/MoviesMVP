@@ -5,6 +5,12 @@ import RealmSwift
 
 /// Реалм сервис
 final class RealmService: RealmServiceProtocol {
+    // MARK: - Private Enum
+
+    private enum Constants {
+        static let typeString = "movieType = %@"
+    }
+
     // MARK: - Public property
 
     private let deleteIfMigration = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
@@ -31,7 +37,7 @@ final class RealmService: RealmServiceProtocol {
         var movies: Results<T>?
         do {
             let realm = try Realm()
-            movies = realm.objects(T.self).filter("movieType = %@", movieType)
+            movies = realm.objects(T.self).filter(Constants.typeString, movieType)
         } catch {
             print(error.localizedDescription)
         }

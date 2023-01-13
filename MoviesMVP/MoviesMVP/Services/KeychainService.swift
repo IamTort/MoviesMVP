@@ -3,37 +3,25 @@
 
 import KeychainAccess
 
-final class KeychainService {
+final class KeychainService: KeychainServiceProtocol {
     // MARK: - Private Enum
 
     private enum Constants {
-        static let apiValueString = "a5b0bb6ebe58602d88ccf2463076122b"
-        static let apiKeyString = "apiKey"
         static let keychainServiceString = "ru.MoviesMVP"
     }
 
     // MARK: - Public property
 
-    static let shared = KeychainService()
-
-    // MARK: - Initializer
-
-    private init() {}
+    private let keychain = Keychain(service: Constants.keychainServiceString)
 
     // MARK: - Public methods
 
-    func getAPIKey() -> String {
-        guard let keychainString = Keychain(service: Constants.keychainServiceString)[Constants.apiKeyString] else {
-            setAPIKey()
-            return getAPIKey()
-        }
-        return keychainString
+    func setAPIKey(_ value: String, forKey: String) {
+        keychain[forKey] = value
     }
 
-    // MARK: - Private methods
-
-    private func setAPIKey() {
-        let keychain = Keychain(service: Constants.keychainServiceString)
-        keychain[Constants.apiKeyString] = Constants.apiValueString
+    func getAPIKey(_ key: String) -> String {
+        guard let keyValue = keychain[key] else { return String() }
+        return keyValue
     }
 }

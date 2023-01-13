@@ -271,11 +271,11 @@ extension FilmViewController: FilmViewProtocol {
 
     func fetchImage(pathString: String, imageService: ImageServiceProtocol) {
         let iconUrl = "\(PurchaseEndPoint.link.rawValue)\(pathString)"
-        imageService.getPhoto(byUrl: iconUrl) { [weak self] result in
+        imageService.fetchImage(byUrl: iconUrl) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case let .success(image):
-                self.filmImageView.image = image
+            case let .success(data):
+                self.filmImageView.image = UIImage(data: data)
             case let .failure(error):
                 self.showAlert(title: Constants.alertTitleString, message: error.localizedDescription)
             }

@@ -146,12 +146,12 @@ final class FilmTableViewCell: UITableViewCell {
 
     func configureImage(data: Movie, imageService: ImageServiceProtocol) {
         let iconUrl = "\(PurchaseEndPoint.link.rawValue)\(data.posterPath)"
-        imageService.getPhoto(byUrl: iconUrl) { [weak self] result in
+        imageService.fetchImage(byUrl: iconUrl) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case let .success(image):
+            case let .success(data):
                 DispatchQueue.main.async {
-                    self.filmImageView.image = image
+                    self.filmImageView.image = UIImage(data: data)
                 }
             case let .failure(error):
                 print(error.localizedDescription)

@@ -1,7 +1,7 @@
 // FileManagerService.swift
 // Copyright © RoadMap. All rights reserved.
 
-import UIKit
+import Foundation
 
 /// Загрузка фото из кеша
 final class FileManagerService: FileManagerServiceProtocol {
@@ -29,22 +29,27 @@ final class FileManagerService: FileManagerServiceProtocol {
     }()
 
     private let cacheLifeTime: TimeInterval = Constants.cacheLifeTime
-    private var imagesMap = [String: UIImage]()
+    private var imagesMap = [String: Data]()
 
     // MARK: - Public methods
 
-    func getImageFromCache(url: String) -> UIImage? {
+    func getImageFromCache(url: String) -> Data? {
         guard let fileName = getFilePath(url: url),
               let info = try? FileManager.default.attributesOfItem(atPath: fileName),
               let modificationDate = info[FileAttributeKey.modificationDate] as? Date
         else { return nil }
         let lifeTime = Date().timeIntervalSince(modificationDate)
-        guard lifeTime <= cacheLifeTime,
-              let image = UIImage(contentsOfFile: fileName) else { return nil }
-        DispatchQueue.main.async {
-            self.imagesMap[url] = image
+        guard lifeTime <= cacheLifeTime else { return nil }
+
+        let fileNameURL = URL(fileURLWithPath: fileName)
+        do {
+            let data = try Data(contentsOf: fileNameURL)
+            imagesMap[url] = data
+            return data
+        } catch {
+            print(error.localizedDescription)
         }
-        return image
+        return nil
     }
 
     func saveImageToCache(url: String, data: Data) {

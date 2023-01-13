@@ -45,7 +45,6 @@ final class MainPresenter: MainViewPresenterProtocol {
         self.router = router
         self.imageService = imageService
         self.realmService = realmService
-        setKeyChainKey()
         fetchMovies()
     }
 
@@ -55,30 +54,26 @@ final class MainPresenter: MainViewPresenterProtocol {
         router?.showDetail(filmId: filmId)
     }
 
-    func setKeyChainKey() {
-        let keychain = Keychain(service: Constants.keychainServiceString)
-        keychain[Constants.apiKeyString] = Constants.apiValueString
-    }
-
     func fetchMovies() {
-        networkService?.fetchMovies(page: Constants.firstPageNumber, api: PurchaseEndPoint.popular) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case let .success(movies):
-                guard let movies = movies else {
-                    return
+        networkService?
+            .fetchMovies(page: Constants.firstPageNumber, api: PurchaseEndPoint.popular) { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case let .success(movies):
+                    guard let movies = movies else {
+                        return
+                    }
+                    movies.forEach { movie in
+                        movie.movieType = PurchaseEndPoint.popular.rawValue
+                    }
+                    self.realmService.save(movies: movies, update: true)
+                    self.loadRealmData()
+                    self.moviesPageInfo = movies.first?.pageCount
+                    self.view?.reloadTableView()
+                case let .failure(error):
+                    self.view?.failure(error: error)
                 }
-                movies.forEach { movie in
-                    movie.movieType = PurchaseEndPoint.popular.rawValue
-                }
-                self.realmService.save(movies: movies, update: true)
-                self.loadRealmData()
-                self.moviesPageInfo = movies.first?.pageCount
-                self.view?.reloadTableView()
-            case let .failure(error):
-                self.view?.failure(error: error)
             }
-        }
     }
 
     func fetchNextMovies() {

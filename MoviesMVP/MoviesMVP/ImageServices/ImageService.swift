@@ -1,7 +1,7 @@
 // ImageService.swift
 // Copyright © RoadMap. All rights reserved.
 
-import UIKit
+import Foundation
 
 /// Сервис загрузки фото
 final class ImageService: ImageServiceProtocol {
@@ -12,12 +12,12 @@ final class ImageService: ImageServiceProtocol {
 
     // MARK: - Public methods
 
-    func getPhoto(byUrl url: String, completion: @escaping (Result<UIImage, Error>) -> ()) {
+    func fetchImage(byUrl url: String, completion: @escaping (Result<Data, Error>) -> ()) {
         let proxy = Proxy(imageNetworkService: imageNetworkService, fileManagerService: fileManagerService)
         proxy.loadImage(by: url) { result in
             switch result {
-            case let .success(image):
-                completion(.success(image))
+            case let .success(data):
+                completion(.success(data))
             case let .failure(error):
                 completion(.failure(error))
             }

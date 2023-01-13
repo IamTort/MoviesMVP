@@ -1,7 +1,7 @@
 // Proxy.swift
 // Copyright © RoadMap. All rights reserved.
 
-import UIKit
+import Foundation
 
 /// Прокси
 final class Proxy: ProxyProtocol {
@@ -19,14 +19,14 @@ final class Proxy: ProxyProtocol {
 
     // MARK: - Public methods
 
-    func loadImage(by url: String, completion: @escaping (Result<UIImage, Error>) -> ()) {
+    func loadImage(by url: String, completion: @escaping (Result<Data, Error>) -> ()) {
         guard let image = fileManagerService.getImageFromCache(url: url) else {
-            imageAPIService.fetchData(byUrl: url) { result in
+            imageAPIService.fetchData(byUrl: url) { [weak self] result in
+                guard let self = self else { return }
                 switch result {
                 case let .success(data):
                     self.fileManagerService.saveImageToCache(url: url, data: data)
-                    guard let image = UIImage(data: data) else { return }
-                    completion(.success(image))
+                    completion(.success(data))
                 case let .failure(error):
                     completion(.failure(error))
                 }

@@ -1,10 +1,10 @@
 // FileManagerServiceProtocol.swift
 // Copyright © RoadMap. All rights reserved.
 
-import UIKit
+import Foundation
 
 /// Протокол сервиса загрузки фото с кеша
 protocol FileManagerServiceProtocol {
-    func getImageFromCache(url: String) -> UIImage?
+    func getImageFromCache(url: String) -> Data?
     func saveImageToCache(url: String, data: Data)
 }

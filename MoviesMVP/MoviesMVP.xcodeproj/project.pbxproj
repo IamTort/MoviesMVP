@@ -10,6 +10,7 @@
 		FA3408E52970B0DC00B7172A /* FileManagerServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3408E42970B0DC00B7172A /* FileManagerServiceProtocol.swift */; };
 		FA3408E72970C39800B7172A /* ImageServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3408E62970C39800B7172A /* ImageServiceProtocol.swift */; };
 		FA3408E92970D1F500B7172A /* ProxyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3408E82970D1F500B7172A /* ProxyProtocol.swift */; };
+		FA3408EB2971E1F400B7172A /* KeychainServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3408EA2971E1F400B7172A /* KeychainServiceProtocol.swift */; };
 		FAB00ED9296F2CE2008C54B8 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = FAB00ED8296F2CE2008C54B8 /* KeychainAccess */; };
 		FAB00EDC296F3873008C54B8 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FAB00EDB296F3873008C54B8 /* RealmSwift */; };
 		FAB00EDF296F3BC2008C54B8 /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB00EDE296F3BC2008C54B8 /* RealmService.swift */; };
@@ -58,6 +59,7 @@
 		FA3408E42970B0DC00B7172A /* FileManagerServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerServiceProtocol.swift; sourceTree = "<group>"; };
 		FA3408E62970C39800B7172A /* ImageServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageServiceProtocol.swift; sourceTree = "<group>"; };
 		FA3408E82970D1F500B7172A /* ProxyProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyProtocol.swift; sourceTree = "<group>"; };
+		FA3408EA2971E1F400B7172A /* KeychainServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainServiceProtocol.swift; sourceTree = "<group>"; };
 		FAB00EDE296F3BC2008C54B8 /* RealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmService.swift; sourceTree = "<group>"; };
 		FAB00EE429706318008C54B8 /* RealmServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmServiceProtocol.swift; sourceTree = "<group>"; };
 		FAB00EE629706D7D008C54B8 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 				FAB00EE429706318008C54B8 /* RealmServiceProtocol.swift */,
 				FAB00EDE296F3BC2008C54B8 /* RealmService.swift */,
 				FAB00EE629706D7D008C54B8 /* KeychainService.swift */,
+				FA3408EA2971E1F400B7172A /* KeychainServiceProtocol.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -510,6 +513,7 @@
 				FAD44433290B28E4006E71AF /* VideoId.swift in Sources */,
 				FAB00EEE2970AB18008C54B8 /* FileManagerService.swift in Sources */,
 				FADB8B15296E47E1001A2065 /* MainViewProtocol.swift in Sources */,
+				FA3408EB2971E1F400B7172A /* KeychainServiceProtocol.swift in Sources */,
 				FADB8B25296E5513001A2065 /* NetworkServiceProtocol.swift in Sources */,
 				FADB8B1C296E4E86001A2065 /* MovieViewPresenterProtocol.swift in Sources */,
 			);

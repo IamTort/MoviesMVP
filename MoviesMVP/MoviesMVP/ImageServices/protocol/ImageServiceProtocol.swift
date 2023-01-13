@@ -1,9 +1,9 @@
 // ImageServiceProtocol.swift
 // Copyright © RoadMap. All rights reserved.
 
-import UIKit
+import Foundation
 
 /// Протокол сервиса загрузки фото
 protocol ImageServiceProtocol {
-    func getPhoto(byUrl url: String, completion: @escaping (Result<UIImage, Error>) -> ())
+    func fetchImage(byUrl url: String, completion: @escaping (Result<Data, Error>) -> ())
 }
