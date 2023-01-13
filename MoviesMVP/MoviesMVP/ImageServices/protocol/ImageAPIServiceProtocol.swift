@@ -5,5 +5,5 @@ import Foundation
 
 /// Протокол сервиса загрузки фото с сети
 protocol ImageAPIServiceProtocol {
-    func loadPhoto(byUrl url: String, completion: @escaping (Result<Data, Error>) -> ())
+    func fetchData(byUrl url: String, completion: @escaping (Result<Data, Error>) -> ())
 }

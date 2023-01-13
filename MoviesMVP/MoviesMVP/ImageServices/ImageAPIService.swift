@@ -8,7 +8,7 @@ import UIKit
 final class ImageAPIService: ImageAPIServiceProtocol {
     // MARK: - Public methods
 
-    func loadPhoto(byUrl url: String, completion: @escaping (Result<Data, Error>) -> ()) {
+    func fetchData(byUrl url: String, completion: @escaping (Result<Data, Error>) -> ()) {
         AF.request(url).responseData(queue: DispatchQueue.global()) { response in
             switch response.result {
             case let .success(data):

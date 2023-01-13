@@ -13,6 +13,7 @@ final class MainPresenter: MainViewPresenterProtocol {
         static let apiValueString = "a5b0bb6ebe58602d88ccf2463076122b"
         static let apiKeyString = "apiKey"
         static let keychainServiceString = "ru.MoviesMVP"
+        static let firstPageNumber = 1
     }
 
     // MARK: - Public property
@@ -60,7 +61,7 @@ final class MainPresenter: MainViewPresenterProtocol {
     }
 
     func fetchMovies() {
-        networkService?.fetchMovies(page: 1, api: PurchaseEndPoint.popular) { [weak self] result in
+        networkService?.fetchMovies(page: Constants.firstPageNumber, api: PurchaseEndPoint.popular) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case let .success(movies):
@@ -130,7 +131,7 @@ final class MainPresenter: MainViewPresenterProtocol {
     }
 
     func fetch(api: PurchaseEndPoint) {
-        networkService?.fetchMovies(page: 1, api: api) { [weak self] result in
+        networkService?.fetchMovies(page: Constants.firstPageNumber, api: api) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case let .success(movies):

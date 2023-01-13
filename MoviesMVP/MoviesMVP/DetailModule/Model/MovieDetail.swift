@@ -36,8 +36,4 @@ final class MovieDetail: Object {
         releas = json["release_date"].stringValue
         runtime = json["runtime"].intValue
     }
-
-//    override class func primaryKey() -> String? {
-//        "id"
-//    }
 }

@@ -15,7 +15,6 @@ final class MoviePresenter: MovieViewPresenterProtocol {
 
     // MARK: - Public property
 
-    var film: Results<MovieDetail>?
     var movie: MovieDetail?
 
     // MARK: - Private property

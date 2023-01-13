@@ -21,7 +21,7 @@ final class Proxy: ProxyProtocol {
 
     func loadImage(by url: String, completion: @escaping (Result<UIImage, Error>) -> ()) {
         guard let image = fileManagerService.getImageFromCache(url: url) else {
-            imageAPIService.loadPhoto(byUrl: url) { result in
+            imageAPIService.fetchData(byUrl: url) { result in
                 switch result {
                 case let .success(data):
                     self.fileManagerService.saveImageToCache(url: url, data: data)
