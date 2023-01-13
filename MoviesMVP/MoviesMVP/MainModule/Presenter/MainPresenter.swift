@@ -87,8 +87,6 @@ final class MainPresenter: MainViewPresenterProtocol {
         fetchMovies(page: page)
     }
 
-    // MARK: - Private methods
-
     func fetchMovies(page: Int) {
         networkService?.fetchMovies(page: page) { [weak self] result in
             guard let self = self else { return }

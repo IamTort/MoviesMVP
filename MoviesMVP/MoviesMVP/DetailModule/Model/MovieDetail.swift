@@ -5,24 +5,23 @@ import RealmSwift
 import SwiftyJSON
 
 /// Модель фильма
-@objcMembers
 final class MovieDetail: Object {
     /// Идентификатор фильма
-    dynamic var id = 0
+    @Persisted(primaryKey: true) var id: Int
     /// Описание фильма
-    dynamic var overview: String = ""
+    @Persisted var overview: String
     /// Ссылка на постер фильма
-    dynamic var posterPath: String = ""
+    @Persisted var posterPath: String
     /// Девиз
-    dynamic var tagline: String = ""
+    @Persisted var tagline: String
     /// Название фильма
-    dynamic var title: String = ""
+    @Persisted var title: String
     /// Рейтинг фильма
-    dynamic var rate = 0.0
+    @Persisted var rate: Double
     /// Дата выпуска
-    dynamic var releas: String = ""
+    @Persisted var releas: String
     /// Длительность фильма
-    dynamic var runtime = 0
+    @Persisted var runtime: Int
 
     // MARK: - Initializer
 
@@ -38,7 +37,7 @@ final class MovieDetail: Object {
         runtime = json["runtime"].intValue
     }
 
-    override class func primaryKey() -> String? {
-        "id"
-    }
+//    override class func primaryKey() -> String? {
+//        "id"
+//    }
 }

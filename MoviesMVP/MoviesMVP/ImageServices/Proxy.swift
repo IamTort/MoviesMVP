@@ -13,7 +13,7 @@ final class Proxy: ProxyProtocol {
     // MARK: - Initializer
 
     init(imageNetworkService: ImageAPIServiceProtocol, fileManagerService: FileManagerServiceProtocol) {
-        self.imageAPIService = imageNetworkService
+        imageAPIService = imageNetworkService
         self.fileManagerService = fileManagerService
     }
 

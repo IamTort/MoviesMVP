@@ -7,13 +7,13 @@ import RealmSwift
 final class RealmService: RealmServiceProtocol {
     // MARK: - Public property
 
-    static let deleteIfMigration = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
+    private let deleteIfMigration = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
 
     // MARK: - Public Methods
 
     func save<T: Object>(movies: [T], update: Bool) {
         do {
-            let realm = try Realm(configuration: RealmService.deleteIfMigration)
+            let realm = try Realm(configuration: deleteIfMigration)
             try realm.write {
                 switch update {
                 case true:

@@ -51,7 +51,7 @@ final class MoviePresenter: MovieViewPresenterProtocol {
         router?.showVideo(videoIndex: videoIndex)
     }
 
-    // MARK: - Private method
+    // MARK: - Public method
 
     func fetchMovie() {
         guard let index = filmIndex else { return }
@@ -68,10 +68,10 @@ final class MoviePresenter: MovieViewPresenterProtocol {
             }
         }
     }
-    
+
     func loadRealmData() {
-        guard let id = self.filmIndex,
-              let detailsRealm = self.realmService.loadData(movies: MovieDetail.self, id: id) else { return }
-        self.movie = detailsRealm
+        guard let id = filmIndex,
+              let detailsRealm = realmService.loadData(movies: MovieDetail.self, id: id) else { return }
+        movie = detailsRealm
     }
 }

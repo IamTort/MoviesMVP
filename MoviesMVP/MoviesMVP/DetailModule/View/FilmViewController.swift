@@ -20,6 +20,7 @@ final class FilmViewController: UIViewController {
         static let imdbFullRate = "/10 IMDb"
         static let hours = "ч"
         static let minutes = "мин"
+        static let alertTitleString = "Ошибка"
     }
 
     // MARK: - Private Visual Components
@@ -276,7 +277,7 @@ extension FilmViewController: FilmViewProtocol {
             case let .success(image):
                 self.filmImageView.image = image
             case let .failure(error):
-                print(error.localizedDescription)
+                self.showAlert(title: Constants.alertTitleString, message: error.localizedDescription)
             }
         }
     }

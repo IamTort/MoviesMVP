@@ -22,16 +22,18 @@ final class KeychainService {
 
     // MARK: - Public methods
 
-    func setAPIKey() {
-        let keychain = Keychain(service: Constants.keychainServiceString)
-        keychain[Constants.apiKeyString] = Constants.apiValueString
-    }
-
     func getAPIKey() -> String {
         guard let keychainString = Keychain(service: Constants.keychainServiceString)[Constants.apiKeyString] else {
             setAPIKey()
             return getAPIKey()
         }
         return keychainString
+    }
+
+    // MARK: - Private methods
+
+    private func setAPIKey() {
+        let keychain = Keychain(service: Constants.keychainServiceString)
+        keychain[Constants.apiKeyString] = Constants.apiValueString
     }
 }
