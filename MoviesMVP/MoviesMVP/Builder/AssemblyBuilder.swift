@@ -10,7 +10,15 @@ final class AssemblyBuilder: AssemblyBuilderProtocol {
     func makeMainModule(router: RouterProtocol) -> UIViewController {
         let view = MoviesViewController()
         let networkService = NetworkService()
-        let presenter = MainPresenter(view: view, networkService: networkService, router: router)
+        let imageService = ImageService()
+        let realmService = RealmService()
+        let presenter = MainPresenter(
+            view: view,
+            networkService: networkService,
+            router: router,
+            imageService: imageService,
+            realmService: realmService
+        )
         view.presenter = presenter
         return view
     }
@@ -18,7 +26,16 @@ final class AssemblyBuilder: AssemblyBuilderProtocol {
     func makeDetailModule(filmIndex: Int, router: RouterProtocol) -> UIViewController {
         let view = FilmViewController()
         let networkService = NetworkService()
-        let presenter = MoviePresenter(view: view, networkService: networkService, filmIndex: filmIndex, router: router)
+        let realmService = RealmService()
+        let imageService = ImageService()
+        let presenter = MoviePresenter(
+            view: view,
+            networkService: networkService,
+            filmIndex: filmIndex,
+            router: router,
+            imageService: imageService,
+            realmService: realmService
+        )
         view.presenter = presenter
         return view
     }

@@ -1,40 +1,44 @@
 // MovieDetail.swift
 // Copyright © RoadMap. All rights reserved.
 
+import RealmSwift
 import SwiftyJSON
 
 /// Модель фильма
-struct MovieDetail {
+@objcMembers
+final class MovieDetail: Object {
     /// Идентификатор фильма
-    let id: Int
+    dynamic var id = 0
     /// Описание фильма
-    let overview: String
+    dynamic var overview: String = ""
     /// Ссылка на постер фильма
-    let posterPath: String
+    dynamic var posterPath: String = ""
     /// Девиз
-    let tagline: String
+    dynamic var tagline: String = ""
     /// Название фильма
-    let title: String
+    dynamic var title: String = ""
     /// Рейтинг фильма
-    let rate: Double
+    dynamic var rate = 0.0
     /// Дата выпуска
-    let release: String
-    /// Жанры
-    let genres: [String]
+    dynamic var releas: String = ""
     /// Длительность фильма
-    let runtime: Int
+    dynamic var runtime = 0
 
     // MARK: - Initializer
 
-    init(json: JSON) {
+    convenience init(json: JSON) {
+        self.init()
         id = json["id"].intValue
         overview = json["overview"].stringValue
         posterPath = json["poster_path"].stringValue
         tagline = json["tagline"].stringValue
         title = json["title"].stringValue
         rate = json["vote_average"].doubleValue
-        release = json["release_date"].stringValue
-        genres = json["genres"].arrayValue.map { $0["name"].stringValue }
+        releas = json["release_date"].stringValue
         runtime = json["runtime"].intValue
+    }
+
+    override class func primaryKey() -> String? {
+        "id"
     }
 }

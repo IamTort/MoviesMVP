@@ -268,28 +268,28 @@ extension FilmViewController: FilmViewProtocol {
         showErrorAlert(title: title, message: message)
     }
 
-    func fetchData(pathString: String, networkService: NetworkServiceProtocol) {
+    func fetchImage(pathString: String, imageService: ImageServiceProtocol) {
         let iconUrl = "\(PurchaseEndPoint.link.rawValue)\(pathString)"
-        networkService.fetchData(iconUrl: iconUrl) { [weak self] result in
+        imageService.getPhoto(byUrl: iconUrl) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case let .success(data):
-                self.filmImageView.image = UIImage(data: data)
+            case let .success(image):
+                self.filmImageView.image = image
             case let .failure(error):
                 print(error.localizedDescription)
             }
         }
     }
 
-    func setupData(data: MovieDetail, networkService: NetworkServiceProtocol) {
-        fetchData(pathString: data.posterPath, networkService: networkService)
+    func setupData(data: MovieDetail, imageService: ImageServiceProtocol) {
+        fetchImage(pathString: data.posterPath, imageService: imageService)
         titleLabel.attributedText = NSMutableAttributedString().normal("\(data.title) ")
-            .normalGray("(\(data.release.prefix(4)))")
+            .normalGray("(\(data.releas.prefix(4)))")
         rateLabel.text = "\(data.rate)" + Constants.imdbFullRate
         taglineLabel.text = "\(data.tagline)"
         descriptionLabel.text = data.overview
         genresLabel.text =
-            "\(data.genres.map { $0 }.joined(separator: ", ")) \(Constants.dot) \((data.runtime) / 60)" +
+            "\(Constants.dot) \((data.runtime) / 60)" +
             " \(Constants.hours) \((data.runtime) % 60) \(Constants.minutes)"
     }
 }

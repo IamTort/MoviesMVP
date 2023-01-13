@@ -136,21 +136,23 @@ final class FilmTableViewCell: UITableViewCell {
 
     // MARK: - Public methods
 
-    func setupData(data: Movie, networkService: NetworkServiceProtocol) {
+    func setupData(data: Movie, imageService: ImageServiceProtocol) {
         nameLabel.text = data.title
         descriptionLabel.text = data.overview
         rateLabel.text = "\(data.rate)"
-        fetchData(pathString: data.posterPath, networkService: networkService)
         colorRateView(data: data)
+        configureImage(data: data, imageService: imageService)
     }
 
-    func fetchData(pathString: String, networkService: NetworkServiceProtocol) {
-        let iconUrl = "\(PurchaseEndPoint.link.rawValue)\(pathString)"
-        networkService.fetchData(iconUrl: iconUrl) { [weak self] result in
+    func configureImage(data: Movie, imageService: ImageServiceProtocol) {
+        let iconUrl = "\(PurchaseEndPoint.link.rawValue)\(data.posterPath)"
+        imageService.getPhoto(byUrl: iconUrl) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case let .success(data):
-                self.filmImageView.image = UIImage(data: data)
+            case let .success(image):
+                DispatchQueue.main.async {
+                    self.filmImageView.image = image
+                }
             case let .failure(error):
                 print(error.localizedDescription)
             }
@@ -160,5 +162,9 @@ final class FilmTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         filmImageView.image = nil
+        nameLabel.text = nil
+        descriptionLabel.text = nil
+        rateLabel.text = nil
+        rateView.backgroundColor = nil
     }
 }
