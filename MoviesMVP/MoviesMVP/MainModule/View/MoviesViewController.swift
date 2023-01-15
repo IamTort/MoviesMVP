@@ -102,7 +102,7 @@ final class MoviesViewController: UIViewController {
 
 extension MoviesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        presenter?.movies?.count ?? 0
+        presenter?.movies.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -110,9 +110,9 @@ extension MoviesViewController: UITableViewDataSource {
             withIdentifier: Constants.cellIdentifier,
             for: indexPath
         ) as? FilmTableViewCell {
-            guard let film = presenter?.movies?[indexPath.row],
-                  let networkService = presenter?.networkService else { return UITableViewCell() }
-            cell.setupData(data: film, networkService: networkService)
+            guard let film = presenter?.movies[indexPath.row],
+                  let imageService = presenter?.imageService else { return UITableViewCell() }
+            cell.setupData(data: film, imageService: imageService)
             return cell
         }
         return UITableViewCell()
@@ -128,7 +128,7 @@ extension MoviesViewController: UITableViewDataSource {
 extension MoviesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        guard let filmIndex = presenter?.movies?[indexPath.row].id else { return }
+        guard let filmIndex = presenter?.movies[indexPath.row].id else { return }
         presenter?.tapOnFilm(filmId: filmIndex)
     }
 }

@@ -3,6 +3,7 @@
 
 import Alamofire
 import Foundation
+import KeychainAccess
 import SwiftyJSON
 
 /// Типы запросов
@@ -33,17 +34,22 @@ final class NetworkService: NetworkServiceProtocol {
 
     // MARK: - Private property
 
-    private let queryItemKey = URLQueryItem(
-        name: Constants.queryItemKeyName,
-        value: UserDefaults.standard.string(forKey: Constants.apiValueKeyName)
-    )
-
     private let queryItemLanguage = URLQueryItem(
         name: Constants.queryItemLanguageName,
         value: Constants.queryItemLanguageValue
     )
 
+    private lazy var queryItemKey = URLQueryItem(
+        name: Constants.queryItemKeyName,
+        value: keychainService.getAPIKey(Constants.apiValueKeyName)
+    )
+
     private var category = PurchaseEndPoint.popular
+    private var keychainService: KeychainServiceProtocol
+
+    init(keychainService: KeychainServiceProtocol) {
+        self.keychainService = keychainService
+    }
 
     // MARK: - Public methods
 
@@ -104,18 +110,6 @@ final class NetworkService: NetworkServiceProtocol {
             case let .success(json):
                 let videos = json[Constants.resultsMoviesString].arrayValue.map { VideoId(json: $0) }
                 completion(.success(videos))
-            case let .failure(error):
-                completion(.failure(error))
-            }
-        }
-    }
-
-    func fetchData(iconUrl: String, completion: @escaping (Result<Data, Error>) -> Void) {
-        guard let url = URL(string: iconUrl) else { return }
-        AF.request(url).responseData { response in
-            switch response.result {
-            case let .success(data):
-                completion(.success(data))
             case let .failure(error):
                 completion(.failure(error))
             }

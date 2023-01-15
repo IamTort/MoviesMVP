@@ -1,7 +1,8 @@
 // MoviePresenter.swift
 // Copyright © RoadMap. All rights reserved.
 
-import Foundation
+import RealmSwift
+import UIKit
 
 /// Презентер экрана Фильма
 final class MoviePresenter: MovieViewPresenterProtocol {
@@ -19,6 +20,8 @@ final class MoviePresenter: MovieViewPresenterProtocol {
     // MARK: - Private property
 
     private let networkService: NetworkServiceProtocol?
+    private var imageService: ImageServiceProtocol?
+    private var realmService: RealmServiceProtocol
     private var filmIndex: Int?
     private var router: RouterProtocol?
     private weak var view: FilmViewProtocol?
@@ -29,12 +32,16 @@ final class MoviePresenter: MovieViewPresenterProtocol {
         view: FilmViewProtocol,
         networkService: NetworkServiceProtocol,
         filmIndex: Int,
-        router: RouterProtocol
+        router: RouterProtocol,
+        imageService: ImageServiceProtocol,
+        realmService: RealmServiceProtocol
     ) {
         self.view = view
         self.networkService = networkService
         self.router = router
         self.filmIndex = filmIndex
+        self.imageService = imageService
+        self.realmService = realmService
     }
 
     // MARK: - Public method
@@ -43,20 +50,27 @@ final class MoviePresenter: MovieViewPresenterProtocol {
         router?.showVideo(videoIndex: videoIndex)
     }
 
-    // MARK: - Private method
+    // MARK: - Public method
 
     func fetchMovie() {
         guard let index = filmIndex else { return }
         networkService?.fetchMovie(index: index) { [weak self] result in
             guard let self = self,
-                  let networkService = self.networkService else { return }
+                  let imageService = self.imageService else { return }
             switch result {
             case let .success(movie):
-                self.movie = movie
-                self.view?.setupData(data: movie, networkService: networkService)
+                self.realmService.save(movies: [movie], update: true)
+                self.loadRealmData()
+                self.view?.setupData(data: movie, imageService: imageService)
             case .failure:
                 self.view?.showAlert(title: Constants.alertTitleString, message: Constants.alertMessageString)
             }
         }
+    }
+
+    func loadRealmData() {
+        guard let id = filmIndex,
+              let detailsRealm = realmService.loadData(movies: MovieDetail.self, id: id) else { return }
+        movie = detailsRealm
     }
 }
