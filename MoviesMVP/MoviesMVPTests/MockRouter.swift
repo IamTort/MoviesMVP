@@ -1,12 +1,6 @@
 // MockRouter.swift
 // Copyright © RoadMap. All rights reserved.
 
-//
-//  MockRouter.swift
-//  MoviesMVPTests
-//
-//  Created by angelina on 16.01.2023.
-//
 @testable import MoviesMVP
 import XCTest
 

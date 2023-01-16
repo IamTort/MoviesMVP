@@ -1,12 +1,6 @@
 // MockImageAPIService.swift
 // Copyright © RoadMap. All rights reserved.
 
-//
-//  MockImageAPIService.swift
-//  MoviesMVPTests
-//
-//  Created by angelina on 16.01.2023.
-//
 @testable import MoviesMVP
 import XCTest
 
