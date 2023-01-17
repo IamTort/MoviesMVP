@@ -121,6 +121,7 @@ final class MainPresenter: MainViewPresenterProtocol {
                 return .popular
             }
         }
+
         self.category = category
         fetch(api: category)
     }
