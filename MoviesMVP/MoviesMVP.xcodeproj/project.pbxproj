@@ -36,6 +36,9 @@
 		FAC67BA62975DB6300D22F4D /* MockImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC67BA52975DB6300D22F4D /* MockImageService.swift */; };
 		FAC67BA82975DBEB00D22F4D /* MockNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC67BA72975DBEB00D22F4D /* MockNetworkService.swift */; };
 		FAC67BAA2975DD7400D22F4D /* MockRealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC67BA92975DD7400D22F4D /* MockRealmService.swift */; };
+		FAC67BAD2975E6E000D22F4D /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = FAC67BAC2975E6E000D22F4D /* Alamofire */; };
+		FAC67BAF2975E6E400D22F4D /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = FAC67BAE2975E6E400D22F4D /* SwiftyJSON */; };
+		FAC67BB12975E6EA00D22F4D /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FAC67BB02975E6EA00D22F4D /* RealmSwift */; };
 		FAD4440C2906E5AF006E71AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD4440B2906E5AF006E71AF /* AppDelegate.swift */; };
 		FAD4440E2906E5AF006E71AF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD4440D2906E5AF006E71AF /* SceneDelegate.swift */; };
 		FAD444102906E5AF006E71AF /* MoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD4440F2906E5AF006E71AF /* MoviesViewController.swift */; };
@@ -155,6 +158,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAC67BB12975E6EA00D22F4D /* RealmSwift in Frameworks */,
+				FAC67BAF2975E6E400D22F4D /* SwiftyJSON in Frameworks */,
+				FAC67BAD2975E6E000D22F4D /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -243,6 +249,13 @@
 			path = protocol;
 			sourceTree = "<group>";
 		};
+		FAC67BAB2975E6E000D22F4D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		FAD443FF2906E5AF006E71AF = {
 			isa = PBXGroup;
 			children = (
@@ -250,6 +263,7 @@
 				FA76C512297493FE00992513 /* MoviesMVPTests */,
 				FA76C5232974A78A00992513 /* MoviesMVPUITests */,
 				FAD444092906E5AF006E71AF /* Products */,
+				FAC67BAB2975E6E000D22F4D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -463,6 +477,11 @@
 				FA76C516297493FE00992513 /* PBXTargetDependency */,
 			);
 			name = MoviesMVPTests;
+			packageProductDependencies = (
+				FAC67BAC2975E6E000D22F4D /* Alamofire */,
+				FAC67BAE2975E6E400D22F4D /* SwiftyJSON */,
+				FAC67BB02975E6EA00D22F4D /* RealmSwift */,
+			);
 			productName = MoviesMVPTests;
 			productReference = FA76C511297493FE00992513 /* MoviesMVPTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -1062,6 +1081,21 @@
 			productName = KeychainAccess;
 		};
 		FAB00EDB296F3873008C54B8 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FAB00EDA296F3873008C54B8 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+		FAC67BAC2975E6E000D22F4D /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FADB8AF1296DC23A001A2065 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		FAC67BAE2975E6E400D22F4D /* SwiftyJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FADB8AF4296DC264001A2065 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
+			productName = SwiftyJSON;
+		};
+		FAC67BB02975E6EA00D22F4D /* RealmSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = FAB00EDA296F3873008C54B8 /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;

@@ -8,7 +8,7 @@ import XCTest
 final class MockRouter: RouterProtocol {
     // MARK: - Public property
 
-    public var isDetailShowed: Bool = false
+    var isDetailShowed: Bool = false
     var navigationController: UINavigationController?
     var assemblyBuilder: AssemblyBuilderProtocol?
 

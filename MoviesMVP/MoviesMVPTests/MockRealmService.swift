@@ -5,6 +5,7 @@
 import RealmSwift
 import XCTest
 
+/// Мок реалм сервиса
 final class MockRealmService: RealmServiceProtocol {
     // MARK: - Private Enum
 
